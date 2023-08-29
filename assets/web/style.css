@@ -3,6 +3,10 @@
     --main-linear-bg: linear-gradient(90deg, #b06ab3, #4568dc);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Space Grotesk";
 }
@@ -180,6 +184,7 @@ body {
 }
 .grid-wrapper > .project-container {
     border-radius: 5px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     /* overflow: hidden; */
 }
 .grid-wrapper > .project-container:hover > img{
@@ -199,6 +204,10 @@ body {
     text-align: left;
 }
 
+.nav-icon {
+    display: none;
+}
+
 @media screen and (max-width:767.98px) {
     .sub-head::before {
         top: 50%;
@@ -214,7 +223,18 @@ body {
     .about .category-boxes .wide {
         grid-column: span 2;
     } 
-    .grid-wrapper {
-        
+    .intro {
+        width: 94% !important;
+        margin: 0 auto !important;
+        text-align: center;
+    }
+    .nav-icon {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: red;
+        z-index: 10;
     }
 }
