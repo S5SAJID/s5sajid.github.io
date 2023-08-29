@@ -146,9 +146,6 @@ body {
     transition: all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.grid-wrapper > div > img:hover {
-    filter: grayscale(0);
-}
 
 .grid-wrapper {
     padding: 10px;
@@ -170,6 +167,36 @@ body {
 .grid-wrapper > .big {
     grid-column: span 2;
     grid-row: span 2;
+}
+
+.grid-wrapper > div > .details{
+    background: linear-gradient(45deg, #111, #00000000);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transform: translateY(100px);
+    height: fit-content;
+    transition: transform .2s ease-in-out ;
+}
+.grid-wrapper > .project-container {
+    border-radius: 5px;
+    /* overflow: hidden; */
+}
+.grid-wrapper > .project-container:hover > img{
+    filter: grayscale(0);
+    transform: scale(1.15);
+}
+.grid-wrapper > .project-container:hover > .details {
+    transform: translateY(0px);
+}
+.grid-wrapper > div > .details > .title {
+    text-align: left;
+    color: #fff;
+    margin-bottom: 1px;
+}
+.grid-wrapper > div > .details > .subtitle {
+    color: #ddd;
+    text-align: left;
 }
 
 @media screen and (max-width:767.98px) {
