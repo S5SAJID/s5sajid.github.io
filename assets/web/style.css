@@ -97,7 +97,7 @@ body {
 }
 
 .about .image-pl {
-    background: red;
+    background: #222;
     align-self: stretch;
     background-image: url(../images/me-3.jpg);
     background-size: cover;
@@ -186,5 +186,8 @@ body {
     } 
     .about .category-boxes .wide {
         grid-column: span 2;
-    }   
+    } 
+    .grid-wrapper {
+        
+    }
 }
