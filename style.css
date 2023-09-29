@@ -4,6 +4,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: "Montserrat";
+  src: url(./res/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url(./res/SpaceGrotesk.ttf);
+}
+
 body {
   width: 100vw;
   background: #020204;
