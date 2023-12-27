@@ -1,3 +1,5 @@
+![Alt Text](https://github.com/S5SAJID/s5sajid.github.io/blob/main/res/images/me.jpg)
+
 # S5 SAJID - Web Developer
 
 Hey there, future internet friend! Welcome to my little corner of the web, where I unleash my web development wizardry and sprinkle a bit of code-based magic. Dive into the whimsical world of [S5 SAJID](https://s5sajid.github.io/)!
