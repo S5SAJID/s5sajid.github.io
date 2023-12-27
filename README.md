@@ -1,12 +1,13 @@
-![Alt Text](https://github.com/S5SAJID/s5sajid.github.io/blob/main/res/images/me.jpg)
 
 # S5 SAJID - Web Developer
 
-Hey there, future internet friend! Welcome to my little corner of the web, where I unleash my web development wizardry and sprinkle a bit of code-based magic. Dive into the whimsical world of [S5 SAJID](https://s5sajid.github.io/)!
+![Alt Text](https://github.com/S5SAJID/s5sajid.github.io/blob/main/res/images/me.jpg)
+
+Assalam u Alikum!, future internet friend! Welcome to my little corner of the web, where I unleash my web development wizardry and sprinkle a bit of code-based magic. Dive into the whimsical world of [S5 SAJID](https://s5sajid.github.io/)!
 
 ## About Me
 
-Assalam u Alikum! I'm Sajid Ullah, your friendly neighborhood Web Developer. I specialize in crafting websites that are as visually appealing as a cat meme on a Friday evening. My tech toolbox includes:
+I'm Sajid Ullah, your friendly neighborhood Web Developer. I specialize in crafting websites that are as visually appealing as a cat meme on a Friday evening. My tech toolbox includes:
 
 - HTML5
 - CSS3
