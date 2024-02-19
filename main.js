@@ -127,12 +127,3 @@ gsap.to(".projects .grid-wrapper", {
   },
   opacity: 1
 })
-
-// vanilla tilt
-
-let titleEles = document.querySelectorAll(".tilt-container");
-
-for (let i = 0; i < titleEles.length; i++) {
-  const element = titleEles[i];
-  VanillaTilt.init(element, {max: 25, speed: 400});
-}
