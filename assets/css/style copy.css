@@ -19,7 +19,7 @@ body::before {
 }
 
 :root {
-  --accent-hue: 50;
+  --accent-hue: 151;
   --accent-color: hsl(var(--accent-hue), 90%, 56%);
   --accent-hover: hsl(var(--accent-hue), 91%, 66%);
   --accent-line-color: hsl(var(--accent-hue), 91%, 61%);
@@ -132,10 +132,6 @@ h6 {
   #header h1 {
     font-size: 36px;
   }
-
-  #header.header-top {
-    
-  }
   
   #header h2 {
     text-align: center;
@@ -154,12 +150,16 @@ h6 {
   }
 }
 
+.container {
+  backdrop-filter: blur(8px);
+}
+
 /* Header Top */
 #header.header-top {
   height: 80px;
   position: fixed;
   left: 0;
-  top: 10px;
+  top: 0;
   border-bottom: 1px rgba(245, 222, 179, 0.2) solid;
   right: 0;
   backdrop-filter: blur(8px);
@@ -188,6 +188,7 @@ h6 {
 @media (max-width: 768px) {
   #header.header-top {
     height: 60px;
+    backdrop-filter: blur(0);
   }
 
   #header.header-top h1 {
@@ -1203,3 +1204,12 @@ div {
   border-radius: 20px;
 }
 
+
+
+.ginner-container img {
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.gslide-inner-content {
+  padding: 0 10px;
+}
