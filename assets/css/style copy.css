@@ -150,9 +150,6 @@ h6 {
   }
 }
 
-.container {
-  backdrop-filter: blur(8px);
-}
 
 /* Header Top */
 #header.header-top {
@@ -162,8 +159,7 @@ h6 {
   top: 0;
   border-bottom: 1px rgba(245, 222, 179, 0.2) solid;
   right: 0;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.9);
 }
 
 #header.header-top .social-links,
@@ -188,7 +184,6 @@ h6 {
 @media (max-width: 768px) {
   #header.header-top {
     height: 60px;
-    backdrop-filter: blur(0);
   }
 
   #header.header-top h1 {
