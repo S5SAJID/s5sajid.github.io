@@ -1,5 +1,5 @@
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--body-font-family), sans-serif;
   background-color: #040404;
   color: #fff;
   position: relative;
@@ -9,13 +9,23 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background: #040404 url("../img/bg.jpg") top right no-repeat;
+  background: #040404 url("../img/bg3.jpg") top right no-repeat;
   background-size: cover;
   left: 0;
   right: 0;
   top: 0;
   height: 100vh;
   z-index: -1;
+}
+
+:root {
+  --accent-hue: 50;
+  --accent-color: hsl(var(--accent-hue), 90%, 56%);
+  --accent-hover: hsl(var(--accent-hue), 91%, 66%);
+  --accent-line-color: hsl(var(--accent-hue), 91%, 61%);
+  --primary-font-family: "Comfortaa";
+  --sec-font-family: "Manrope";
+  --body-font-family: "Manrope"
 }
 
 @media (min-width: 1024px) {
@@ -25,12 +35,12 @@ body::before {
 }
 
 a {
-  color: #18d26e;
+  color: var(--accent-color);
   text-decoration: none;
 }
 
 a:hover {
-  color: #35e888;
+  color: var(--accent-hover);
   text-decoration: none;
 }
 
@@ -40,7 +50,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--primary-font-family), sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -50,6 +60,7 @@ h6 {
   transition: ease-in-out 0.3s;
   position: relative;
   height: 100vh;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   z-index: 997;
@@ -84,7 +95,7 @@ h6 {
 
 #header h2 span {
   color: #fff;
-  border-bottom: 2px solid #18d26e;
+  border-bottom: 2px solid var(--accent-color);
   padding-bottom: 6px;
 }
 
@@ -113,15 +124,21 @@ h6 {
 }
 
 #header .social-links a:hover {
-  background: #18d26e;
+  background: var(--accent-color);
 }
+
 
 @media (max-width: 992px) {
   #header h1 {
     font-size: 36px;
   }
 
+  #header.header-top {
+    
+  }
+  
   #header h2 {
+    text-align: center;
     font-size: 20px;
     line-height: 30px;
   }
@@ -142,9 +159,11 @@ h6 {
   height: 80px;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 10px;
+  border-bottom: 1px rgba(245, 222, 179, 0.2) solid;
   right: 0;
-  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 #header.header-top .social-links,
@@ -190,6 +209,7 @@ h6 {
 .navbar ul {
   margin: 0;
   padding: 0;
+  border-radius: 20px;
   display: flex;
   list-style: none;
   align-items: center;
@@ -209,7 +229,7 @@ h6 {
   align-items: center;
   justify-content: space-between;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--sec-font-family), sans-serif;
   font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
@@ -231,7 +251,7 @@ h6 {
   height: 2px;
   bottom: -4px;
   left: 0;
-  background-color: #18d26e;
+  background-color: var(--accent-color);
   visibility: hidden;
   width: 0px;
   transition: all 0.3s ease-in-out 0s;
@@ -367,7 +387,7 @@ section .container {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #aaaaaa;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--sec-font-family), sans-serif;
 }
 
 .section-title h2::after {
@@ -375,7 +395,7 @@ section .container {
   width: 120px;
   height: 1px;
   display: inline-block;
-  background: #4ceb95;
+  background: var(--accent-line-color);
   margin: 4px 10px;
 }
 
@@ -385,17 +405,21 @@ section .container {
   font-size: 36px;
   font-weight: 700;
   text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--sec-font-family), sans-serif;
   color: #fff;
 }
 
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
+.about .container {
+  margin-top: 20px;
+}
+
 .about-me .content h3 {
   font-weight: 700;
   font-size: 26px;
-  color: #18d26e;
+  color: var(--accent-color);
 }
 
 .about-me .content ul {
@@ -416,7 +440,7 @@ section .container {
 .about-me .content ul i {
   font-size: 16px;
   margin-right: 5px;
-  color: #18d26e;
+  color: var(--accent-color);
   line-height: 0;
 }
 
@@ -447,7 +471,7 @@ section .container {
   font-size: 24px;
   background: rgba(255, 255, 255, 0.1);
   padding: 12px;
-  color: #18d26e;
+  color: var(--accent-color);
   border-radius: 50px;
   line-height: 0;
 }
@@ -462,7 +486,7 @@ section .container {
 .counts .count-box p {
   padding: 0;
   margin: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: var(--body-font-family), sans-serif;
   font-size: 14px;
 }
 
@@ -482,7 +506,7 @@ section .container {
   text-transform: uppercase;
   display: block;
   font-weight: 600;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--sec-font-family), sans-serif;
   color: #fff;
 }
 
@@ -499,7 +523,7 @@ section .container {
   width: 1px;
   height: 10px;
   transition: 0.9s;
-  background-color: #18d26e;
+  background-color: var(--accent-color);
 }
 
 /*--------------------------------------------------------------
@@ -610,7 +634,7 @@ section .container {
 }
 
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #18d26e;
+  background-color: var(--accent-color);
 }
 
 /*--------------------------------------------------------------
@@ -636,8 +660,8 @@ section .container {
   font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-  color: #18d26e;
+  font-family: var(--sec-font-family), sans-serif;
+  color: var(--accent-color);
   margin-bottom: 10px;
 }
 
@@ -670,8 +694,8 @@ section .container {
   border-radius: 50px;
   left: -9px;
   top: 0;
-  background: #18d26e;
-  border: 2px solid #18d26e;
+  background: var(--accent-color);
+  border: 2px solid var(--accent-color);
 }
 
 /*--------------------------------------------------------------
@@ -688,7 +712,7 @@ section .container {
   margin: 0 auto;
   width: 64px;
   height: 64px;
-  background: #18d26e;
+  background: var(--accent-color);
   border-radius: 5px;
   transition: all 0.3s ease-out 0s;
   display: flex;
@@ -733,8 +757,8 @@ section .container {
 }
 
 .services .icon-box:hover {
-  background: #18d26e;
-  border-color: #18d26e;
+  background: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 .services .icon-box:hover .icon {
@@ -742,11 +766,11 @@ section .container {
 }
 
 .services .icon-box:hover .icon i {
-  color: #18d26e;
+  color: var(--accent-color);
 }
 
 .services .icon-box:hover .icon::before {
-  background: #35e888;
+  background: var(--accent-hover);
 }
 
 .services .icon-box:hover h4 a,
@@ -782,12 +806,12 @@ section .container {
   background: rgba(255, 255, 255, 0.1);
   margin: 0 3px 10px 3px;
   transition: all 0.3s ease-in-out;
-  border-radius: 4px;
+  border-radius: 20px;
 }
 
 .portfolio #portfolio-flters li:hover,
 .portfolio #portfolio-flters li.filter-active {
-  background: #18d26e;
+  background: var(--accent-color);
 }
 
 .portfolio #portfolio-flters li:last-child {
@@ -981,7 +1005,7 @@ section .container {
 }
 
 .portfolio-details .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #18d26e;
+  background-color: var(--accent-color);
 }
 
 /*--------------------------------------------------------------
@@ -996,7 +1020,7 @@ section .container {
 
 .contact .info-box i.bx {
   font-size: 24px;
-  color: #18d26e;
+  color: var(--accent-color);
   border-radius: 50%;
   padding: 14px;
   float: left;
@@ -1033,12 +1057,13 @@ section .container {
 }
 
 .contact .info-box .social-links a:hover {
-  color: #18d26e;
+  color: var(--accent-color);
 }
 
 .contact .php-email-form {
   padding: 30px;
   background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
 }
 
 .contact .php-email-form .error-message {
@@ -1057,7 +1082,7 @@ section .container {
 .contact .php-email-form .sent-message {
   display: none;
   background: rgba(255, 255, 255, 0.08);
-  background: #18d26e;
+  background: var(--accent-color);
   text-align: center;
   padding: 15px;
   font-weight: 600;
@@ -1077,7 +1102,7 @@ section .container {
   width: 24px;
   height: 24px;
   margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
+  border: 3px solid var(--accent-color);
   border-top-color: #eee;
   animation: animate-loading 1s linear infinite;
 }
@@ -1086,6 +1111,7 @@ section .container {
 .contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
+  border-radius: 20px;
   font-size: 14px;
   background: rgba(255, 255, 255, 0.08);
   border: 0;
@@ -1119,7 +1145,7 @@ section .container {
 }
 
 .contact .php-email-form button[type=submit] {
-  background: #18d26e;
+  background: var(--accent-color);
   border: 0;
   padding: 10px 30px;
   color: #fff;
@@ -1165,10 +1191,15 @@ section .container {
 }
 
 .credits a {
-  color: #18d26e;
+  color: var(--accent-color);
   transition: 0.3s;
 }
 
 .credits a:hover {
   color: #fff;
 }
+
+div {
+  border-radius: 20px;
+}
+

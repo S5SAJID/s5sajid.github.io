@@ -75,6 +75,7 @@
 
       if (this.hash == '#header') {
         header.classList.remove('header-top')
+        header.classList.remove('container')
         sections.forEach((item) => {
           item.classList.remove('section-show')
         })
@@ -83,6 +84,7 @@
 
       if (!header.classList.contains('header-top')) {
         header.classList.add('header-top')
+        header.classList.add('container')
         setTimeout(function() {
           sections.forEach((item) => {
             item.classList.remove('section-show')
