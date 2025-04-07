@@ -10,9 +10,15 @@ const posts = await getCollection('blog', ({ data }) => {
 const sortedPosts = posts.sort((a, b) => {
   return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
 });
+
+const description = "Explore my blog where I share insights about web development, UI/UX design, and tech trends.";
 ---
 
-<Layout title="Blog | Portfolio">
+<Layout 
+  title="Blog"
+  description={description}
+  image="/blog-og-image.jpg"
+>
   <main class="min-h-screen py-20">
     <div class="container mx-auto px-6">
       <h1 class="text-7xl md:text-8xl font-bold mb-20">BLOG</h1>

@@ -1,10 +1,12 @@
 ---
 title: "The Beauty of Constraints in UI Design"
-description: "Exploring how limitations can actually foster creativity and lead to better design solutions."
+description: "Exploring how working within limitations can actually foster creativity and lead to better design solutions."
 category: "DESIGN"
 date: "2023-05-15"
 readTime: "5 min read"
 draft: false
+lastModified: "2023-05-15"
+
 tags: ["design", "ui", "creativity"]
 ---
 

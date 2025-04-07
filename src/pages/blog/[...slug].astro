@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import BlogJsonLd from '../../components/BlogJsonLd.astro';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -12,9 +13,39 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// Generate meta description from content if not provided
+const description = entry.data.description || entry.data.excerpt || `Read ${entry.data.title} - a blog post about ${entry.data.category}`;
+
+// Format date for display
+const formattedDate = new Date(entry.data.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+const author = {
+  name: "S5 Sajid",
+  url: "https://s5sajid.github.io"
+};
 ---
 
-<Layout title={`${entry.data.title} | Blog`}>
+<Layout 
+  title={entry.data.title}
+  description={description}
+  image={entry.data.image}
+  article={true}
+>
+  <BlogJsonLd
+    title={entry.data.title}
+    description={description}
+    publishDate={entry.data.date}
+    updateDate={entry.data.lastModified}
+    author={author}
+    image={entry.data.image}
+    url={Astro.url.href}
+  />
+  
   <main class="min-h-screen py-20">
     <div class="container mx-auto px-6 max-w-3xl">
       <a href="/blog" class="inline-block mb-12 hover:underline">← Back to Blog</a>
@@ -23,7 +54,7 @@ const { Content } = await entry.render();
         <span class="text-sm tracking-widest">{entry.data.category}</span>
         <h1 class="text-4xl md:text-5xl font-bold mt-2 mb-4">{entry.data.title}</h1>
         <div class="flex gap-4 text-sm mb-12">
-          <span>{entry.data.date}</span>
+          <time datetime={entry.data.date}>{formattedDate}</time>
           <span>·</span>
           <span>{entry.data.readTime}</span>
         </div>
@@ -31,8 +62,10 @@ const { Content } = await entry.render();
         {entry.data.image && (
           <img 
             src={entry.data.image} 
-            alt={entry.data.title}
-            class="w-full h-[400px] object-cover mb-12"
+            alt={entry.data.imageAlt || entry.data.title}
+            class="w-full h-auto rounded-lg shadow-lg mb-8"
+            width="1200"
+            height="630"
           />
         )}
         

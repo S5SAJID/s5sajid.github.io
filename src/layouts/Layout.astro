@@ -1,11 +1,16 @@
 ---
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  canonical?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "S5 Sajid's Portfolio - Full Stack Developer and UI/UX Designer", image, article, canonical } = Astro.props;
 import Footer from "../components/Footer.astro";
 import Navigation from "../components/Navigation.astro";
+import SEO from "../components/SEO.astro";
 import "../styles/globals.css";
 ---
 
@@ -17,6 +22,13 @@ import "../styles/globals.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      article={article}
+      canonical={canonical}
+    />
     <title>{title}</title>
   </head>
   <body class="relative">

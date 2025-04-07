@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  publishDate: string;
+  updateDate?: string;
+  author: {
+    name: string;
+    url: string;
+  };
+  image?: string;
+  url: string;
+}
+
+const { 
+  title, 
+  description, 
+  publishDate, 
+  updateDate, 
+  author,
+  image = '/og-image.jpg',
+  url
+} = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": new URL(image, Astro.url),
+  "datePublished": new Date(publishDate).toISOString(),
+  "dateModified": updateDate ? new Date(updateDate).toISOString() : new Date(publishDate).toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": author.name,
+    "url": author.url
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
