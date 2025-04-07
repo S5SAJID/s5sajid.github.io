@@ -2,7 +2,7 @@
 
 A modern, minimalist portfolio and blog built with Astro, featuring a beautiful monochromatic design aesthetic.
 
-![Portfolio Preview](public/preview.png)
+<!-- ![Portfolio Preview](public/preview.png) -->
 
 ## ✨ Features
 
