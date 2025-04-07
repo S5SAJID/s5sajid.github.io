@@ -1,5 +1,5 @@
 ---
-import type { BlogPost } from '../types';
+import { getCollection } from 'astro:content';
 
 interface Props {
     title?: string;
@@ -13,32 +13,13 @@ const {
     maxPosts = 3
 } = Astro.props;
 
-const posts: BlogPost[] = [
-    {
-        category: "DESIGN",
-        title: "The Beauty of Constraints in UI Design",
-        description: "Exploring how limitations can actually foster creativity and lead to better design solutions.",
-        date: "May 15, 2023",
-        readTime: "5 min read",
-        url: "/blog/constraints-in-ui-design"
-    },
-    {
-        category: "DEVELOPMENT",
-        title: "Building Micro-Interactions with GSAP",
-        description: "A practical guide to implementing subtle but meaningful animations that enhance user experience.",
-        date: "March 28, 2023",
-        readTime: "8 min read",
-        url: "/blog/micro-interactions-gsap"
-    },
-    {
-        category: "PROCESS",
-        title: "My Self-Taught Developer Journey",
-        description: "Reflections on learning to code without formal education and building a career in tech.",
-        date: "January 10, 2023",
-        readTime: "12 min read",
-        url: "/blog/self-taught-journey"
-    }
-].slice(0, maxPosts);
+const allPosts = await getCollection('blog', ({ data }) => {
+    return !data.draft;
+});
+
+const posts = allPosts
+    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+    .slice(0, maxPosts);
 ---
 
 <section id="blog" class="py-20 border-t border-black">
@@ -47,11 +28,11 @@ const posts: BlogPost[] = [
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {posts.map((post) => (
-                <a href={post.url} class="blog-card p-6 group">
-                    <span class="text-xs tracking-widest">{post.category}</span>
-                    <h3 class="text-xl font-bold mt-2 mb-4 group-hover:underline">{post.title}</h3>
-                    <p class="text-sm mb-4">{post.description}</p>
-                    <span class="text-xs">{post.date} · {post.readTime}</span>
+                <a href={`/blog/${post.slug}`} class="blog-card p-6 group">
+                    <span class="text-xs tracking-widest">{post.data.category}</span>
+                    <h3 class="text-xl font-bold mt-2 mb-4 group-hover:underline">{post.data.title}</h3>
+                    <p class="text-sm mb-4">{post.data.description}</p>
+                    <span class="text-xs">{post.data.date} · {post.data.readTime}</span>
                 </a>
             ))}
         </div>

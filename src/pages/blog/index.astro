@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => {
+  return !data.draft;
+});
+
+// Sort posts by date
+const sortedPosts = posts.sort((a, b) => {
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+---
+
+<Layout title="Blog | Portfolio">
+  <main class="min-h-screen py-20">
+    <div class="container mx-auto px-6">
+      <h1 class="text-7xl md:text-8xl font-bold mb-20">BLOG</h1>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedPosts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="blog-card p-6 group">
+            <span class="text-xs tracking-widest">{post.data.category}</span>
+            <h2 class="text-xl font-bold mt-2 mb-4 group-hover:underline">
+              {post.data.title}
+            </h2>
+            <p class="text-sm mb-4">{post.data.description}</p>
+            <span class="text-xs">
+              {post.data.date} · {post.data.readTime}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .blog-card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid #000;
+  }
+  
+  .blog-card:hover {
+    box-shadow: 8px 8px 0px #000;
+  }
+</style>
