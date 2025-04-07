@@ -1,0 +1,122 @@
+---
+interface TimelineItem {
+    title: string;
+    company: string;
+    period: string;
+    description: string;
+}
+
+const skills = [
+    "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express",
+    "MongoDB", "PostgreSQL", "Figma", "Adobe XD", "GSAP", "Tailwind CSS",
+    "Three.js", "WebGL"
+];
+
+const timeline: TimelineItem[] = [
+    {
+        title: "Lead Developer",
+        company: "Digital Studio",
+        period: "2022-Present",
+        description: "Leading development of client projects and internal products with a focus on interactive experiences."
+    },
+    {
+        title: "UI/UX Designer",
+        company: "Creative Agency",
+        period: "2020-2022",
+        description: "Designed interfaces for web and mobile applications with a focus on usability and aesthetics."
+    },
+    {
+        title: "Freelance Developer",
+        company: "Self-Employed",
+        period: "2018-2020",
+        description: "Built websites and small web applications for local businesses and startups."
+    }
+];
+---
+
+<section id="about" class="py-20 border-t border-black">
+    <div class="container mx-auto px-6">
+        <h2 class="section-title font-bold mb-20">ABOUT ME</h2>
+        
+        <div class="flex flex-col md:flex-row gap-12">
+            <div class="md:w-1/2">
+                <h3 class="text-2xl font-bold mb-6">The Journey</h3>
+                <p class="mb-6">Self-taught developer with a passion for creating digital experiences that are both beautiful and functional. My journey began with simple HTML pages and has evolved into building complex web applications with modern technologies.</p>
+                <p class="mb-6">I believe in the power of minimal design, where every element serves a purpose. My work is characterized by clean interfaces, thoughtful interactions, and a focus on user experience.</p>
+                <p>When I'm not coding, you can find me sketching interface ideas, studying typography, or exploring new ways to blend technology with art.</p>
+            </div>
+            
+            <div class="md:w-1/2">
+                <h3 class="text-2xl font-bold mb-6">Skills & Tools</h3>
+                <div class="flex flex-wrap gap-3 mb-8">
+                    {skills.map(skill => (
+                        <span class="skill-pill px-3 py-1 text-xs rounded-full">{skill}</span>
+                    ))}
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-6">Experience</h3>
+                <div class="space-y-8">
+                    {timeline.map(item => (
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <h4 class="font-bold">{item.title}</h4>
+                                <p class="text-sm mb-1">{item.company} · {item.period}</p>
+                                <p class="text-sm">{item.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-title {
+        font-size: 7vw;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+    }
+
+    .skill-pill {
+        border: 1px solid #000;
+        transition: all 0.3s ease;
+    }
+    
+    .skill-pill:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .timeline-item {
+        position: relative;
+        padding-left: 60px;
+    }
+    
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background-color: #000;
+    }
+    
+    .timeline-dot {
+        position: absolute;
+        left: 16px;
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #000;
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 12vw;
+        }
+    }
+</style>

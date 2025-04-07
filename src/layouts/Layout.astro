@@ -1,0 +1,78 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+import "../styles/globals.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="relative">
+		<slot />
+		<style is:global>
+			@import url('https://fonts.cdnfonts.com/css/bricolage-grotesque');
+			
+			body {
+				font-family: 'Bricolage Grotesque', sans-serif;
+				background-color: #ffffff;
+				color: #000000;
+				overflow-x: hidden;
+				cursor: none;
+			}
+			
+			.custom-cursor {
+				position: fixed;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background-color: #000;
+				pointer-events: none;
+				mix-blend-mode: difference;
+				z-index: 9999;
+				transform: translate(-50%, -50%);
+				transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease;
+			}
+			
+			.cursor-follower {
+				position: fixed;
+				width: 40px;
+				height: 40px;
+				border: 1px solid #000;
+				border-radius: 50%;
+				pointer-events: none;
+				z-index: 9998;
+				transform: translate(-50%, -50%);
+				transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+			}
+			
+			.cursor-active {
+				transform: translate(-50%, -50%) scale(1.5);
+				background-color: transparent;
+				border: 1px solid #000;
+			}
+			
+			.cursor-text {
+				transform: translate(-50%, -50%) scale(3);
+			}
+			
+			@media (max-width: 768px) {
+				body {
+					cursor: default;
+				}
+				
+				.custom-cursor, .cursor-follower {
+					display: none;
+				}
+			}
+		</style>
+	</body>
+</html>

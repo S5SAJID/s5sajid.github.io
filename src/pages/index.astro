@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Work from '../components/Work.astro';
+import About from '../components/About.astro';
+import Blog from '../components/Blog.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import CustomCursor from '../components/CustomCursor.astro';
+import GridOverlay from '../components/GridOverlay.astro';
+
+---
+
+<Layout title="S5SAJID | Full-Stack Developer & Designer">
+    <CustomCursor />
+    <GridOverlay />
+    <Navigation />
+    <main>
+        <Hero />
+        <Work />
+        <About />
+        <Blog />
+        <Contact />
+    </main>
+    <Footer />
+
+    <script>
+        // GSAP Animations
+        import { gsap } from "gsap";
+        import { ScrollTrigger } from "gsap/ScrollTrigger";
+        
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Section title animations
+        const titles = gsap.utils.toArray<HTMLElement>('.section-title');
+        titles.forEach((title) => {
+            gsap.from(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+        
+        // Project card animations
+        const cards = gsap.utils.toArray<HTMLElement>('.project-card');
+        cards.forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power3.out"
+            });
+        });
+        
+        // About section animations
+        const timelineItems = gsap.utils.toArray<HTMLElement>('.timeline-item');
+        timelineItems.forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                x: -50,
+                opacity: 0,
+                duration: 0.6,
+                delay: i * 0.15,
+                ease: "power3.out"
+            });
+        });
+        
+        // Skill pills animation
+        const pills = gsap.utils.toArray<HTMLElement>('.skill-pill');
+        pills.forEach((pill, i) => {
+            gsap.from(pill, {
+                scrollTrigger: {
+                    trigger: pill,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                scale: 0,
+                opacity: 0,
+                duration: 0.4,
+                delay: i * 0.05,
+                ease: "back.out(1.7)"
+            });
+        });
+    </script>
+</Layout>

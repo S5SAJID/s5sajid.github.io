@@ -1,0 +1,55 @@
+---
+---
+
+<div class="cursor-follower"></div>
+
+<script>
+    const cursorFollower = document.querySelector('.cursor-follower') as HTMLElement;
+    
+    if (cursorFollower) {
+        document.addEventListener('mousemove', (e) => {
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+        });
+        
+        // Cursor hover effects
+        const hoverElements = document.querySelectorAll('a, button, .project-card, .blog-card, .skill-pill, .nav-link');
+        
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorFollower.classList.add('cursor-active');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursorFollower.classList.remove('cursor-active');
+            });
+        });
+    }
+</script>
+
+<style>
+    .cursor-follower {
+        width: 40px;
+        height: 40px;
+        background: white;
+        mix-blend-mode: difference;
+        position: fixed;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out;
+    }
+
+    .cursor-active {
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    .cursor-text {
+        width: 2px;
+        height: 60px;
+        background: black;
+        border-radius: 0;
+    }
+</style>

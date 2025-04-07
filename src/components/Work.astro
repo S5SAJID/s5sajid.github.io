@@ -1,0 +1,103 @@
+---
+import type { Project } from '../types';
+
+interface Props {
+    title?: string;
+    showViewAll?: boolean;
+}
+
+const { title = "SELECTED WORK", showViewAll = true } = Astro.props;
+
+const projects: Project[] = [
+    {
+        type: "WEB APP",
+        title: "Minimal Task Manager",
+        description: "A distraction-free task management application with a focus on keyboard shortcuts and minimal UI.",
+        skills: ["React", "Node.js", "MongoDB"],
+        caseStudyUrl: "#"
+    },
+    {
+        type: "DESIGN SYSTEM",
+        title: "Neo Brutalism UI Kit",
+        description: "A comprehensive design system based on neo-brutalism principles with reusable components.",
+        skills: ["Figma", "Storybook", "React"],
+        caseStudyUrl: "#"
+    }
+];
+---
+
+<section id="work" class="py-20 border-t border-black">
+    <div class="container mx-auto px-6">
+        <h2 class="section-title font-bold mb-20">{title}</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+            {projects.map((project) => (
+                <div class="project-card p-6 bg-white">
+                    <div class="mb-4">
+                        <span class="text-xs tracking-widest">{project.type}</span>
+                        <h3 class="text-2xl font-bold mt-1">{project.title}</h3>
+                    </div>
+                    <div class="aspect-video bg-gray-100 mb-6 flex items-center justify-center border border-gray-300">
+                        {project.previewUrl ? (
+                            <img src={project.previewUrl} alt={project.title} class="w-full h-full object-cover" />
+                        ) : (
+                            <span class="text-gray-500">Project Preview</span>
+                        )}
+                    </div>
+                    <p class="mb-6">{project.description}</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        {project.skills.map((skill) => (
+                            <span class="skill-pill px-3 py-1 text-xs rounded-full">{skill}</span>
+                        ))}
+                    </div>
+                    {project.caseStudyUrl && (
+                        <a href={project.caseStudyUrl} class="text-sm font-medium underline">View Case Study →</a>
+                    )}
+                </div>
+            ))}
+        </div>
+        
+        {showViewAll && (
+            <div class="text-center">
+                <a href="/projects" class="inline-block px-6 py-3 border border-black hover:bg-black hover:text-white transition-all duration-300">
+                    View All Projects
+                </a>
+            </div>
+        )}
+    </div>
+</section>
+
+<style>
+    .section-title {
+        font-size: 7vw;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+    }
+
+    .project-card {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 8px 8px 0px #000;
+        border: 1px solid #000;
+    }
+    
+    .project-card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 12px 12px 0px #000;
+    }
+
+    .skill-pill {
+        border: 1px solid #000;
+        transition: all 0.3s ease;
+    }
+    
+    .skill-pill:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 12vw;
+        }
+    }
+</style>

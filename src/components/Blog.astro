@@ -1,0 +1,90 @@
+---
+import type { BlogPost } from '../types';
+
+interface Props {
+    title?: string;
+    showViewAll?: boolean;
+    maxPosts?: number;
+}
+
+const { 
+    title = "THOUGHTS",
+    showViewAll = true,
+    maxPosts = 3
+} = Astro.props;
+
+const posts: BlogPost[] = [
+    {
+        category: "DESIGN",
+        title: "The Beauty of Constraints in UI Design",
+        description: "Exploring how limitations can actually foster creativity and lead to better design solutions.",
+        date: "May 15, 2023",
+        readTime: "5 min read",
+        url: "/blog/constraints-in-ui-design"
+    },
+    {
+        category: "DEVELOPMENT",
+        title: "Building Micro-Interactions with GSAP",
+        description: "A practical guide to implementing subtle but meaningful animations that enhance user experience.",
+        date: "March 28, 2023",
+        readTime: "8 min read",
+        url: "/blog/micro-interactions-gsap"
+    },
+    {
+        category: "PROCESS",
+        title: "My Self-Taught Developer Journey",
+        description: "Reflections on learning to code without formal education and building a career in tech.",
+        date: "January 10, 2023",
+        readTime: "12 min read",
+        url: "/blog/self-taught-journey"
+    }
+].slice(0, maxPosts);
+---
+
+<section id="blog" class="py-20 border-t border-black">
+    <div class="container mx-auto px-6">
+        <h2 class="section-title font-bold mb-20">{title}</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {posts.map((post) => (
+                <a href={post.url} class="blog-card p-6 group">
+                    <span class="text-xs tracking-widest">{post.category}</span>
+                    <h3 class="text-xl font-bold mt-2 mb-4 group-hover:underline">{post.title}</h3>
+                    <p class="text-sm mb-4">{post.description}</p>
+                    <span class="text-xs">{post.date} · {post.readTime}</span>
+                </a>
+            ))}
+        </div>
+        
+        {showViewAll && (
+            <div class="text-center">
+                <a href="/blog" class="inline-block px-6 py-3 border border-black hover:bg-black hover:text-white transition-all duration-300">
+                    Read All Articles
+                </a>
+            </div>
+        )}
+    </div>
+</section>
+
+<style>
+    .section-title {
+        font-size: 7vw;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+    }
+
+    .blog-card {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 1px solid #000;
+    }
+    
+    .blog-card:hover {
+        box-shadow: 8px 8px 0px #000;
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 12vw;
+        }
+    }
+</style>

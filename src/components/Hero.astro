@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import HeroImage from '../assets/images/hero.png';
+---
+
+<section class="min-h-screen flex items-center pt-20 relative">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end">
+            <div class="md:w-1/2 mb-16 md:mb-0">
+                <h1 class="section-title font-bold mb-6">Full Stack Web Developer.</h1>
+                <p class="text-lg mb-8 max-w-lg">Self-taught full-stack developer & designer crafting digital experiences with a minimalist approach and obsessive attention to detail.</p>
+                <div class="flex gap-4 relative z-10">
+                    <a href="#work" class="px-6 py-3 bg-black text-white hover:bg-white hover:text-black border border-black transition-all duration-300">View Work</a>
+                    <a href="#contact" class="px-6 py-3 border border-black hover:bg-black hover:text-white transition-all duration-300">Get in Touch</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-52">
+                <div class="aspect-square overflow-hidden absolute bottom-0 md:-z-10">
+                    <Image src={HeroImage} alt="Hero Image" class="w-full h-full object-cover"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-title {
+        font-size: 7vw;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 12vw;
+        }
+    }
+</style>

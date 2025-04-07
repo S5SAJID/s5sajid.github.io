@@ -1,0 +1,99 @@
+---
+import type { NavLink } from '../types';
+
+interface Props {
+    title?: string;
+}
+
+const { title = "S5SAJID" } = Astro.props;
+
+const navLinks: NavLink[] = [
+    { text: "Work", href: "#work" },
+    { text: "About", href: "#about" },
+    { text: "Blog", href: "#blog" },
+    { text: "Contact", href: "#contact" }
+];
+---
+
+<nav class="fixed top-0 left-0 w-full z-50 bg-white bg-opacity-90 backdrop-blur-sm border-b border-black">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-xl font-bold tracking-tight">{title}</a>
+        <div class="hidden md:flex gap-8">
+            {navLinks.map((link) => (
+                <a 
+                    href={link.href} 
+                    class="nav-link"
+                    {...link.isExternal && { target: "_blank", rel: "noopener noreferrer" }}
+                >
+                    {link.text}
+                </a>
+            ))}
+        </div>
+        <button 
+            class="md:hidden" 
+            aria-label="Toggle menu"
+            id="menuToggle"
+        >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12H21" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 6H21" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 18H21" stroke="black" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" id="mobileMenu">
+        <div class="container mx-auto px-6 py-4">
+            {navLinks.map((link) => (
+                <a 
+                    href={link.href} 
+                    class="block py-2 nav-link"
+                    {...link.isExternal && { target: "_blank", rel: "noopener noreferrer" }}
+                >
+                    {link.text}
+                </a>
+            ))}
+        </div>
+    </div>
+</nav>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    }
+</script>
+
+<style>
+    .nav-link {
+        position: relative;
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0%;
+        height: 1px;
+        background-color: #000;
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+        width: 100%;
+    }
+</style>
