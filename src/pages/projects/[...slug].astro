@@ -1,0 +1,101 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection("projects");
+
+  return projectEntries
+    .filter((entry) => !entry.data.draft && entry.data.caseStudyEnabled)
+    .map((entry) => ({
+      params: { slug: entry.slug },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Generate meta description from content if not provided
+const description =
+  entry.data.description + `Read ${entry.data.title} - a Project of S5SAJID`;
+---
+
+<Layout
+  title={entry.data.title}
+  description={description}
+  image={entry.data.image}
+  article
+>
+  <main class="min-h-screen py-20">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <a href="/projects" class="inline-block mb-12 hover:underline"
+        >← Back to Projects</a
+      >
+      <article class="prose prose-lg max-w-none">
+        <span class="text-sm tracking-widest">{entry.data.category}</span>
+        <h1 class="text-4xl md:text-5xl font-bold mt-2">
+          {entry.data.title}
+        </h1>
+
+        {entry.data.skills && entry.data.skills.length > 0 && (
+          <div class="py-2 mb-3">
+            <div class="flex gap-2 flex-wrap">
+              {entry.data.skills.map((tag: string) => (
+                <span class="px-3 py-1 bg-gray-100 text-sm rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {
+          entry.data.imagePreviewURL && (
+            <div class="aspect-video grayscale-100 hover:grayscale-0 transition-[filter] duration-100 bg-gray-100 mb-6 flex items-center justify-center border border-gray-300">
+              <img
+              src={entry.data.imagePreviewURL}
+              alt={entry.data.title + " Preview image"}
+              class="w-full h-full object-cover"
+              style={{boxShadow: "0px 8px 0px #000"}}
+              width="1200"
+              height="630"
+            />
+            </div>
+          )
+        }
+        
+        <Content />
+      </article>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .prose {
+    max-width: 100ch;
+    width: 100%;
+  }
+
+  .prose h2 {
+    font-size: 1.875rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+  }
+
+  .prose p {
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+  }
+
+  .prose ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+</style>

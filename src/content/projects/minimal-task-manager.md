@@ -4,8 +4,10 @@ description: "A distraction-free task management application with a focus on key
 category: "WEB APP"
 draft: false
 
-previewURL: "https://s5pages.vercel.app/"
-tags: ["React" ,"Node.js", "MongoDB"]
+livePreviewURL: "https://s5pages.vercel.app/"
+imagePreviewURL: "/images/projects/example.png"
+skills: ["React" ,"Node.js", "MongoDB"]
+caseStudyEnabled: true
 ---
 
 
