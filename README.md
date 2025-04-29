@@ -116,12 +116,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📧 Contact
-
-Your Name - [@yourusername](https://twitter.com/yourusername)
-
-Project Link: [https://github.com/yourusername/mono-portfolio](https://github.com/yourusername/mono-portfolio)
-
 ---
 
 ⭐ Star this repo if you found it helpful!
