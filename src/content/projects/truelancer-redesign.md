@@ -8,6 +8,7 @@ livePreviewURL: "https://truelancer.vercel.app/" # replace with real URL if depl
 imagePreviewURL: "/images/projects/truelancer.png"
 skills: ["Next.js", "React", "Preact", "Tailwind CSS", "GSAP", "SVG", "UI/UX", "Design Systems", "HTML5", "Responsive Design"]
 caseStudyEnabled: true
+featured: false
 ---
 
 ## Truelancer - Landing Page Redesign

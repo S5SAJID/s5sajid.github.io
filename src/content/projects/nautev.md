@@ -10,6 +10,7 @@ caseStudyEnabled: true
 
 imagePreviewURL: "/images/projects/nautev.jpeg"
 draft: false
+featured: false
 ---
 
 Nautev is a revolutionary no-code web-building platform that allow users to create stunning web pages without writing a single line of code. With Nautev, unleash your creativity and bring your ideas to life with ease.

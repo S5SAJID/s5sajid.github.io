@@ -8,6 +8,7 @@ livePreviewURL: "https://s5pages.vercel.app/"
 imagePreviewURL: "/images/projects/example.png"
 skills: ["Next.js","React", "AI", "Prisma", "ShadCN UI", "Tailwind CSS", "PostgreSQL"]
 caseStudyEnabled: true
+featured: true
 ---
 
 A modern website builder platform that lets you Create and manage dynamic web pages with a drag-and-drop interface.
