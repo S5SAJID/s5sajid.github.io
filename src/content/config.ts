@@ -30,7 +30,8 @@ const projectsCollection = defineCollection({
     caseStudyUrl: z.string().url().optional(),
     image: z.string().optional(),
     caseStudyEnabled: z.boolean().optional().default(false),
-    imageAlt: z.string().optional()
+    imageAlt: z.string().optional(),
+    featured: z.boolean().optional()
   })
 })
 

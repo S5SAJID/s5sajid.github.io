@@ -16,6 +16,14 @@ const {
 // Get all projects
 const allProjects = await getCollection("projects");
 let projects = allProjects.filter((e) => !e.data.draft);
+
+// Sort projects by featured status
+projects.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return 0;
+});
+
 projects = isPage ? projects : projects.slice(0, 2);
 const projectCardBoxShadow = isPage ? "0px 0px 0px #000" : "8px 8px 0px #000"
 ---
