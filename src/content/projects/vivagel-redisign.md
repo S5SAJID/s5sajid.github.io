@@ -5,7 +5,7 @@ category: "WEB DESIGN"
 draft: false
 
 livePreviewURL: "https://vivagel.vercel.app/"
-imagePreviewURL: "/images/projects/vivagel-desktop.png"
+imagePreviewURL: "/images/projects/vivagel-desktop.jpeg"
 skills: ["Tailwind CSS", "UI/UX Design", "Illustration", "Redesign", "HTML5", "CSS", "JavaScript"]
 caseStudyEnabled: true
 ---
@@ -34,6 +34,7 @@ This redesign was built from the ground up using industry-appropriate principles
 - **Tone & language**: Rewritten copy avoids fear-based messaging and uses calm, direct medical framing.
 - **Design structure**: Inspired by medical dashboards, scientific journals, and global pharma UX standards.
 
+![mobile preview](/images/projects/vivagel-mobile.png)
 ---
 
 ## 📊 UX Issues Identified in the Original Site
@@ -57,6 +58,7 @@ This redesign was built from the ground up using industry-appropriate principles
 ---
 
 ## 📸 Preview
+![desktop preview](/images/projects/vivagel-desktop-noele.jpeg)
 Live Demo → [View the Redesign](https://your-live-demo-link.com)
 
 ---
