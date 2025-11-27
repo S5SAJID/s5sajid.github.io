@@ -8,7 +8,7 @@ livePreviewURL: "https://vivagel.vercel.app/"
 imagePreviewURL: "/images/projects/vivagel-desktop.jpeg"
 skills: ["Tailwind CSS", "UI/UX Design", "Illustration", "Redesign", "HTML5", "CSS", "JavaScript"]
 caseStudyEnabled: true
-featured: false
+featured: true
 ---
 
 > ⚠️ This is an independent UI/UX redesign. VivaGel™ is a registered trademark of Starpharma. This work is not affiliated with or commissioned by the company.
