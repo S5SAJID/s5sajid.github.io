@@ -10,7 +10,7 @@ caseStudyEnabled: true
 
 imagePreviewURL: "/images/projects/civiora.png"
 draft: false
-featured: true
+featured: false
 ---
 
 **Civiora** is an AI-powered web application that provides answers to questions about the **Constitution of Pakistan** in a chat format. It’s designed to help users understand their rights, responsibilities, and other constitutional principles.
