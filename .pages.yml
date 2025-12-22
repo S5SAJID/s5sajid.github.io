@@ -1,0 +1,80 @@
+media:
+  input: public/
+  output: /
+content:
+  - name: blog
+    label: Blog
+    type: collection
+    path: src/content/blog
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: category
+        label: Category
+        type: string
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: readTime
+        label: Read Time
+        type: string
+      - name: draft
+        label: Draft
+        type: boolean
+        default: true
+      - name: lastModified
+        label: Last Modified
+        type: date
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: body
+        label: Body
+        type: rich-text
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: category
+        label: Category
+        type: string
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: skills
+        label: Skills
+        type: string
+        list: true
+      - name: livePreviewURL
+        label: Live Preview URL
+        type: string
+      - name: caseStudyEnabled
+        label: Case Study Enabled
+        type: boolean
+      - name: imagePreviewURL
+        label: Image Preview URL
+        type: image
+      - name: draft
+        label: Draft
+        type: boolean
+        default: true
+      - name: featured
+        label: Featured
+        type: boolean
+      - name: body
+        label: Body
+        type: rich-text
