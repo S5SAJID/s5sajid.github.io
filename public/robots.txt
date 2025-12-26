@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Sitemaps
-Sitemap: https://s5sajid.github.io/sitemap-index.xml
