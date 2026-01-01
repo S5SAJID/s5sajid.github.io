@@ -7,7 +7,20 @@ description: As the developer and designer on this project, I focused on
   interface that helps scale their digital ambitions.
 skills:
   - UI/UX
+  - WEBSITE
+  - Color Psychology
+  - GSAP
+  - VERCEL
+livePreviewURL: https://safolife.vercel.app/
 caseStudyEnabled: false
-draft: true
+imagePreviewURL: /566_1x_shots_so.png
+draft: false
 featured: false
 ---
+![](/images/projects/Safolife/566_1x_shots_so.png)
+
+![](/images/projects/Safolife/918_1x_shots_so.jpeg)
+
+![](/images/projects/Safolife/990shots_so.jpeg)
+
+![](/images/projects/Safolife/101shots_so.jpeg)
