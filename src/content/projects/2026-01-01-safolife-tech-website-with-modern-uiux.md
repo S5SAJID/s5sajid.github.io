@@ -12,7 +12,7 @@ skills:
   - GSAP
   - VERCEL
 livePreviewURL: https://safolife.vercel.app/
-caseStudyEnabled: false
+caseStudyEnabled: true
 imagePreviewURL: /566_1x_shots_so.png
 draft: false
 featured: false
