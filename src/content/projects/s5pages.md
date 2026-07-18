@@ -1,18 +1,24 @@
 ---
-title: "S5PAGES - Multitenant SAAS"
-description: "A modern website builder platform that lets you Create and manage dynamic web pages with a drag-and-drop interface."
-category: "WEB APP"
-draft: false
-
-livePreviewURL: "https://s5pages.vercel.app/"
-imagePreviewURL: "/images/projects/example.png"
-skills: ["Next.js","React", "AI", "Prisma", "ShadCN UI", "Tailwind CSS", "PostgreSQL"]
+title: S5PAGES - Multitenant SAAS
+category: WEB APP
+description: A modern website builder platform with custom built ecommerce CMS
+  that lets you Create and manage dynamic web pages with a drag-and-drop
+  interface.
+skills:
+  - Next.js
+  - React
+  - AI
+  - Prisma
+  - ShadCN UI
+  - Tailwind CSS
+  - PostgreSQL
+livePreviewURL: https://s5pages.vercel.app/
 caseStudyEnabled: true
+imagePreviewURL: /images/projects/example.png
+draft: false
 featured: true
 ---
-
 A modern website builder platform that lets you Create and manage dynamic web pages with a drag-and-drop interface.
-
 
 ## Features
 
@@ -37,3 +43,4 @@ A modern website builder platform that lets you Create and manage dynamic web pa
 - Authentication: Auth.js (JWT)
 - Styling & UI: [Tailwind CSS](https://tailwindcss.com/) & ShadCN UI.
 - Hosting: Vercel
+
