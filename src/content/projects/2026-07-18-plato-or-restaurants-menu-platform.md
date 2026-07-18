@@ -20,3 +20,11 @@ imagePreviewURL: /hero-mockup.png
 draft: false
 featured: false
 ---
+![](</images/projects/Plato/New Project (3).png>)
+
+![](/images/projects/Plato/step-by-step.png)
+
+![](/images/projects/Plato/public-restaurant.png)
+
+![](/hero-mockup.png)
+
