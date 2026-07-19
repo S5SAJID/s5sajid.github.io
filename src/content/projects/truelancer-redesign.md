@@ -15,7 +15,7 @@ featured: false
 
 This is a professionally crafted concept redesign for [Truelancer](https://www.truelancer.com), focusing on clarity, usability, and brand trust. I designed and developed it from scratch, using lightweight modern tools to deliver a fast, engaging, and conversion-driven experience.
 
-![Responsive mobile preview](/images/truelancer-mobile.png)
+![Responsive mobile preview](/images/projects/truelancer-mobile.png)
 
 ## 🔧 Technologies Used
 - **Next.js** – for routing, fast loading, and server-side rendering  
