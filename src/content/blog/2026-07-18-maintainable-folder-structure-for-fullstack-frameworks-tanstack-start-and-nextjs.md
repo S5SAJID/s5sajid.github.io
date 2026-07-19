@@ -3,7 +3,9 @@ title: Maintainable Folder Structure for Fullstack Frameworks, Tanstack Start & 
 description: My personal preferred folder structure for fullstack platforms to
   keep my project maintainable and clean by separating the frontend from backend
   while still having the smooth integration what the framework provides.
+category: Programming
 date: 2026-07-18
+readTime: Unknown
 draft: true
 lastModified: 2026-07-18
 ---
