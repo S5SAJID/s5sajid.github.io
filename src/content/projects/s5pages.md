@@ -20,6 +20,8 @@ featured: true
 ---
 A modern website builder platform that lets you Create and manage dynamic web pages with a drag-and-drop interface.
 
+![](/images/projects/example.png)
+
 ## Features
 
 - 🎨 **Drag-and-drop page builder:** Utilizes [@measured/puck](https://measured.ai/puck) for a visual and intuitive page building experience.
