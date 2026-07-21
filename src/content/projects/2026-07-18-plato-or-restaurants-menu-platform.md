@@ -20,11 +20,23 @@ imagePreviewURL: /hero-mockup.png
 draft: false
 featured: false
 ---
-![](</images/projects/Plato/New Project (3).png>)
+![](/images/projects/Plato/Logo.png)
 
-![](/images/projects/Plato/step-by-step.png)
+![](</images/projects/Plato/3d Dashboard.png>)
 
-![](/images/projects/Plato/public-restaurant.png)
+![](</images/projects/Plato/2d Dashboard Restaurant.png>)
 
-![](/hero-mockup.png)
+![](</images/projects/Plato/desktop restaurant.png>)
+
+![](</images/projects/Plato/Mobile Resturant Preview.png>)
+
+![](</images/projects/Plato/how it works.png>)
+
+![](/images/projects/Plato/billboard.png)
+
+![](/images/projects/Plato/packaging.png)
+
+![](</images/projects/Plato/step-by-step 1.png>)
+
+![](/images/projects/Plato/footer.png)
 
