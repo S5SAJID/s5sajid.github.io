@@ -18,7 +18,7 @@ livePreviewURL: https://tryplato.vercel.app/
 caseStudyEnabled: true
 imagePreviewURL: /hero-mockup.png
 draft: false
-featured: false
+featured: true
 ---
 ![](/images/projects/Plato/Logo.png)
 
