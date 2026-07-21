@@ -16,7 +16,7 @@ livePreviewURL: https://s5pages.vercel.app/
 caseStudyEnabled: true
 imagePreviewURL: /939shots_so.png
 draft: false
-featured: true
+featured: false
 ---
 A modern website builder platform that lets you Create and manage dynamic web pages with a drag-and-drop interface.
 
