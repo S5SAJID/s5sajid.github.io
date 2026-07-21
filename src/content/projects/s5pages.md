@@ -14,7 +14,7 @@ skills:
   - PostgreSQL
 livePreviewURL: https://s5pages.vercel.app/
 caseStudyEnabled: true
-imagePreviewURL: /images/projects/example.png
+imagePreviewURL: /939shots_so.png
 draft: false
 featured: true
 ---
