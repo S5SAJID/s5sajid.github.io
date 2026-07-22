@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import Image from "astro/components/Image.astro";
 
 export async function getStaticPaths() {
   const projectEntries = await getCollection("projects");
@@ -51,18 +52,17 @@ const description =
         )}
 
         {
-          entry.data.imagePreviewURL && (
-            <div class="aspect-video grayscale-100 hover:grayscale-0 transition-[filter] duration-100 bg-gray-100 mb-6 flex items-center justify-center border border-gray-300">
-              <img
+          entry.data.imagePreviewURL && entry.data.showFirstImage ? (
+            <div class="aspect-square md:min-h-[28.13rem] md:aspect-auto mb-6 flex items-center justify-center border rounded-[32px] border-gray-300">
+              <Image
               src={entry.data.imagePreviewURL}
               alt={entry.data.title + " Preview image"}
               class="w-full h-full object-cover object-top"
-              style={{boxShadow: "0px 8px 0px #000"}}
               width="1200"
               height="630"
             />
             </div>
-          )
+          ) : null
         }
         
         <Content />
@@ -97,5 +97,9 @@ const description =
 
   .prose li {
     margin-bottom: 0.5rem;
+  }
+
+  .prose img {
+    border-radius: 32px;
   }
 </style>
