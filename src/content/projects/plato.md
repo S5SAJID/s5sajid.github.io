@@ -25,6 +25,10 @@ showFirstImage: false
 
 ![3d rendered mockup showing plato dashboard and mobile restaurant preview](</images/projects/Plato/3d Dashboard.png>)
 
+<div>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/Glm9yU0caVk" title="Dinelix" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen></iframe>
+</div>
+
 ![plato dashboard and mobile restaurant preview](</images/projects/Plato/2d Dashboard Restaurant.png>)
 
 ![public menu of restaurant made with plato](</images/projects/Plato/desktop restaurant.png>)
