@@ -1,0 +1,425 @@
+<!--
+  MusicPlayer.astro
+  Floating music player (Bete Ke Naam - Parallax Pixel Player).
+
+  Design/behaviour preserved 1:1 from the source file:
+    - same card structure, borders, hard shadow, mono "pixel" aesthetic
+    - same parallax layers using the repo's own public/1.png, 2.png, 3.png
+    - same audio (public/bete-ke-naam.m4a), same controls & logic
+  Adjustments for integration into this site (per design-system & best practice):
+    - No Tailwind CDN / no external Google Fonts -> uses the site's own fonts
+      (Bricolage Grotesque for body, monospace stack for the pixel bits + timers)
+    - Local asset paths instead of raw.githubusercontent links
+    - Fixed bottom-right floating placement, responsive for mobile
+    - Accordion opens on hover / focus-within OR via the chevron button
+      (so mobile + keyboard users can expand/collapse too)
+    - ARIA labels / aria-expanded / aria-controls on controls
+    - prefers-reduced-motion support (pauses endless cloud animation)
+-->
+
+<section
+  id="playerCard"
+  class="mp-card fixed bottom-4 right-4 z-[60] w-[340px] max-w-[calc(100vw-24px)]
+         bg-white border-2 border-black p-2.5
+         shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
+         transition-all duration-300 antialiased"
+  role="region"
+  aria-label="Music player"
+  aria-live="polite"
+  style="bottom: max(1rem, env(safe-area-inset-bottom));"
+>
+  <div class="flex items-center justify-between gap-2.5 select-none">
+    <button id="miniPlayBtn" disabled
+            aria-label="Play or pause"
+            class="h-9 w-9 shrink-0 bg-black text-white flex items-center justify-center border border-black transition-transform active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed">
+      <svg id="playIcon" class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center gap-1.5 mb-0.5">
+        <span id="statusDot" class="w-2 h-2 rounded-full bg-stone-400 shrink-0"></span>
+        <h1 class="text-xs font-extrabold tracking-tight truncate uppercase">Bete Ke Naam (poem)</h1>
+      </div>
+      <div class="w-full bg-stone-200 h-1 overflow-hidden">
+        <div id="miniProgressBar" class="bg-black h-full w-0 transition-all duration-75"></div>
+      </div>
+    </div>
+
+    <button id="expandBtn"
+            class="shrink-0 flex items-center gap-1 border border-black px-1.5 py-0.5 bg-stone-50 text-[10px] font-mono font-bold"
+            aria-controls="playerBody"
+            aria-expanded="false"
+            aria-label="Show playback controls">
+      <span class="font-pixel text-xs">S5</span>
+      <svg class="mp-chevron w-3 h-3 text-stone-600 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="playerBody" class="mp-body">
+    <div class="pt-3 border-t border-black mt-2.5">
+
+      <div class="relative w-full h-[100px] bg-black border border-black mb-2.5 overflow-hidden shadow-inner">
+        <div class="parallax-layer layer-moon"></div>
+        <div class="parallax-layer layer-dark-clouds"></div>
+        <div class="parallax-layer layer-white-clouds"></div>
+
+        <div id="canvasOverlay" class="absolute inset-0 bg-black/75 flex items-center justify-center gap-2 transition-opacity duration-300">
+          <div id="loaderSpinner" class="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          <span id="overlayMsg" class="font-pixel text-white text-xs tracking-widest">LOADING...</span>
+        </div>
+      </div>
+
+      <div class="mb-2.5">
+        <input id="seekBar" type="range" min="0" max="100" value="0" step="0.1" disabled
+               aria-label="Seek"
+               class="w-full h-1 bg-stone-200 appearance-none cursor-pointer accent-black focus:outline-none">
+        <div class="flex justify-between text-[10px] font-mono font-bold text-stone-500 mt-1">
+          <span id="currentTime">00:00</span>
+          <span id="totalDuration">00:00</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 border-t border-stone-200 pt-2">
+        <div class="flex items-center gap-1.5 bg-stone-50 border border-black px-2 py-1">
+          <button id="muteBtn" aria-label="Toggle mute" class="text-black hover:opacity-70 focus:outline-none">
+            <svg id="volHighIcon" class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            <svg id="volMuteIcon" class="w-3.5 h-3.5 fill-current hidden" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+          </button>
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="0.9"
+                 aria-label="Volume"
+                 class="w-16 h-1 bg-stone-300 appearance-none cursor-pointer accent-black">
+        </div>
+
+        <p class="text-[9px] font-mono font-semibold text-stone-400 truncate">Ashfaq Husain Nazam</p>
+
+        <button id="restartBtn" title="Restart Audio" aria-label="Restart audio"
+                class="h-7 w-7 border border-black bg-white flex items-center justify-center hover:bg-stone-100 active:scale-95 transition-all">
+          <svg class="w-3 h-3 fill-current text-black" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* --- Site design-system typography (no external fonts) --- */
+  .mp-card {
+    font-family: "Bricolage Grotesque", sans-serif;
+    line-height: 1.4;
+  }
+  .font-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+  }
+  .font-pixel {
+    font-weight: 700;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+  }
+
+  /* --- Precision range inputs (unchanged styling) --- */
+  .mp-card input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #000000;
+  }
+  .mp-card input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #000000;
+  }
+
+  /* --- Accordion: expand on hover / focus-within OR via chevron toggle --- */
+  .mp-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  .mp-card:hover .mp-body,
+  .mp-card:focus-within .mp-body,
+  .mp-card.is-expanded .mp-body {
+    max-height: 300px;
+    opacity: 1;
+  }
+
+  /* chevron rotates when open */
+  .mp-card:hover .mp-chevron,
+  .mp-card:focus-within .mp-chevron,
+  .mp-card.is-expanded .mp-chevron {
+    rotate: 180deg;
+  }
+
+  /* --- Parallax endless scrolling layers --- */
+  .parallax-layer {
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+  .layer-moon {
+    background-image: url("/1.png");
+    background-size: contain;
+    background-position: bottom;
+  }
+  .layer-dark-clouds {
+    background-image: url("/2.png");
+    animation: mpMoveClouds 745s linear infinite;
+  }
+  .layer-white-clouds {
+    background-image: url("/3.png");
+    animation: mpMoveCloudsReverse 628s linear infinite;
+    opacity: 0.85;
+  }
+
+  @keyframes mpMoveClouds {
+    from { background-position-x: 0px; }
+    to { background-position-x: -1200px; }
+  }
+  @keyframes mpMoveCloudsReverse {
+    from { background-position-x: 0px; }
+    to { background-position-x: 1200px; }
+  }
+
+  /* Play-state speed feedback is driven in JS (Web Animations API) so the
+     cloud phase is preserved when the speed changes -> no "reset/jump".
+     (Changing animation-duration via a class mid-animation shifts the phase.) */
+
+  /* --- Accessibility: respect reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    .mp-body {
+      transition: none;
+    }
+    .parallax-layer {
+      animation: none !important;
+    }
+    .layer-moon,
+    .layer-dark-clouds,
+    .layer-white-clouds {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  const AUDIO_URL = "/bete-ke-naam.m4a";
+
+  const audio = new Audio(AUDIO_URL);
+  audio.preload = "metadata";
+  audio.volume = 0.9;
+
+  const playerCard = document.getElementById("playerCard");
+  const miniPlayBtn = document.getElementById("miniPlayBtn");
+  const playIcon = document.getElementById("playIcon");
+  const pauseIcon = document.getElementById("pauseIcon");
+  const miniProgressBar = document.getElementById("miniProgressBar");
+  const statusDot = document.getElementById("statusDot");
+
+  const seekBar = document.getElementById("seekBar");
+  const currentTimeEl = document.getElementById("currentTime");
+  const totalDurationEl = document.getElementById("totalDuration");
+  const canvasOverlay = document.getElementById("canvasOverlay");
+  const overlayMsg = document.getElementById("overlayMsg");
+  const loaderSpinner = document.getElementById("loaderSpinner");
+
+  const volumeSlider = document.getElementById("volumeSlider");
+  const muteBtn = document.getElementById("muteBtn");
+  const volHighIcon = document.getElementById("volHighIcon");
+  const volMuteIcon = document.getElementById("volMuteIcon");
+  const restartBtn = document.getElementById("restartBtn");
+
+  const expandBtn = document.getElementById("expandBtn");
+  let lastVol = 0.9;
+
+  // --- Speeds (seconds) for the parallax cloud layers by play state ---
+  const DARK_MS = { paused: 745000, playing: 725000 };
+  const WHITE_MS = { paused: 628000, playing: 515000 };
+  const darkLayer = document.querySelector("#playerCard .layer-dark-clouds");
+  const whiteLayer = document.querySelector("#playerCard .layer-white-clouds");
+
+  // Change an animation's duration while KEEPING the exact same visual phase,
+  // so slowing/speeding up never resets or jumps the cloud position.
+  function rescaleDuration(layer, newDurMs) {
+    if (!layer) return;
+    // Ignore reduced-motion / any case where the CSS animation isn't running
+    const anim = layer.getAnimations().find((a) => a.animationName && a.animationName !== "none");
+    if (!anim) return;
+
+    const cur = anim.currentTime; // ms (grows unbounded for infinite animations)
+    if (cur == null) return;
+    const oldDur = anim.effect.getTiming().duration;
+    if (!oldDur) return;
+
+    // Fraction of the current cycle we're at (position within the tile, 0..1)
+    const fraction = ((cur % oldDur) / oldDur + 1) % 1;
+    const elapsed = fraction * newDurMs;
+
+    // Apply the new duration and re-position to the same fraction -> seamless
+    anim.effect.updateTiming({ duration: newDurMs });
+    anim.currentTime = elapsed;
+  }
+
+  function setPlayingSpeed(isPlaying) {
+    rescaleDuration(darkLayer, isPlaying ? DARK_MS.playing : DARK_MS.paused);
+    rescaleDuration(whiteLayer, isPlaying ? WHITE_MS.playing : WHITE_MS.paused);
+  }
+
+  function expandBtnAria(isOpen) {
+    expandBtn.setAttribute("aria-expanded", String(isOpen));
+    expandBtn.setAttribute("aria-label", isOpen ? "Hide playback controls" : "Show playback controls");
+  }
+
+  function isOpen() {
+    return playerCard.classList.contains("is-expanded") ||
+      playerCard.matches(":hover") ||
+      playerCard.matches(":focus-within");
+  }
+
+  // Toggle for keyboard / touch users (hover & focus-within also open it in CSS)
+  function setExpanded(expanded) {
+    playerCard.classList.toggle("is-expanded", expanded);
+    expandBtnAria(expanded);
+  }
+
+  expandBtn.addEventListener("click", () => {
+    setExpanded(!playerCard.classList.contains("is-expanded"));
+  });
+
+  // Keep aria-expanded in sync when the panel opens via hover or keyboard focus
+  const syncExpandedAria = () => expandBtnAria(isOpen());
+  playerCard.addEventListener("mouseenter", syncExpandedAria);
+  playerCard.addEventListener("mouseleave", syncExpandedAria);
+  playerCard.addEventListener("focusin", syncExpandedAria);
+  playerCard.addEventListener("focusout", syncExpandedAria);
+  const observer = new MutationObserver(syncExpandedAria);
+  observer.observe(playerCard, { attributes: true, attributeFilter: ["class"] });
+
+  audio.addEventListener("loadedmetadata", () => {
+    statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+    totalDurationEl.textContent = formatTime(audio.duration);
+    miniPlayBtn.disabled = false;
+    seekBar.disabled = false;
+    canvasOverlay.classList.add("opacity-0", "pointer-events-none");
+  });
+
+  audio.addEventListener("play", () => {
+    playIcon.classList.add("hidden");
+    pauseIcon.classList.remove("hidden");
+    statusDot.className = "w-2 h-2 rounded-full bg-stone-500 animate-pulse";
+    playerCard.classList.add("is-playing");
+    setPlayingSpeed(true);
+  });
+
+  audio.addEventListener("pause", () => {
+    playIcon.classList.remove("hidden");
+    pauseIcon.classList.add("hidden");
+    statusDot.className = "w-2 h-2 rounded-full bg-amber-500";
+    playerCard.classList.remove("is-playing");
+    setPlayingSpeed(false);
+  });
+
+  audio.addEventListener("ended", () => {
+    playIcon.classList.remove("hidden");
+    pauseIcon.classList.add("hidden");
+    statusDot.className = "w-2 h-2 rounded-full bg-stone-400";
+    seekBar.value = 0;
+    miniProgressBar.style.width = "0%";
+    currentTimeEl.textContent = "00:00";
+    playerCard.classList.remove("is-playing");
+    setPlayingSpeed(false);
+  });
+
+  audio.addEventListener("error", () => {
+    loaderSpinner.classList.add("hidden");
+    overlayMsg.textContent = "LOAD ERROR";
+    overlayMsg.classList.add("text-red-500");
+    canvasOverlay.classList.remove("opacity-0", "pointer-events-none");
+    statusDot.className = "w-2 h-2 rounded-full bg-red-500";
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    if (!isNaN(audio.duration) && audio.duration > 0) {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      seekBar.value = pct;
+      miniProgressBar.style.width = `${pct}%`;
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+  });
+
+  miniPlayBtn.addEventListener("click", () => {
+    if (audio.paused) audio.play();
+    else audio.pause();
+  });
+
+  seekBar.addEventListener("input", (e) => {
+    if (!isNaN(audio.duration)) {
+      const targetTime = (e.target.value / 100) * audio.duration;
+      audio.currentTime = targetTime;
+      miniProgressBar.style.width = `${e.target.value}%`;
+    }
+  });
+
+  volumeSlider.addEventListener("input", (e) => {
+    const val = parseFloat(e.target.value);
+    audio.volume = val;
+    updateMuteIcon(val === 0);
+  });
+
+  muteBtn.addEventListener("click", () => {
+    if (audio.volume > 0) {
+      lastVol = audio.volume;
+      audio.volume = 0;
+      volumeSlider.value = 0;
+      updateMuteIcon(true);
+    } else {
+      audio.volume = lastVol;
+      volumeSlider.value = lastVol;
+      updateMuteIcon(false);
+    }
+  });
+
+  restartBtn.addEventListener("click", () => {
+    audio.currentTime = 0;
+    audio.play();
+  });
+
+  function updateMuteIcon(isMuted) {
+    if (isMuted) {
+      volHighIcon.classList.add("hidden");
+      volMuteIcon.classList.remove("hidden");
+    } else {
+      volHighIcon.classList.remove("hidden");
+      volMuteIcon.classList.add("hidden");
+    }
+  }
+
+  function formatTime(secs) {
+    if (isNaN(secs) || secs === Infinity) return "00:00";
+    const m = Math.floor(secs / 60) || 0;
+    const s = Math.floor(secs % 60) || 0;
+    return `${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
+  }
+</script>

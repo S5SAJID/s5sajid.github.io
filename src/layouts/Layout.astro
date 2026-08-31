@@ -15,6 +15,7 @@ const {
   canonical,
 } = Astro.props;
 import Footer from "../components/Footer.astro";
+import MusicPlayer from "../components/MusicPlayer.astro";
 import Navigation from "../components/Navigation.astro";
 import SEO from "../components/SEO.astro";
 import "../styles/globals.css";
@@ -97,6 +98,7 @@ import "../styles/globals.css";
   <body class="relative">
     <Navigation />
     <slot />
+    <MusicPlayer />
     <style is:global>
       @import url("https://fonts.cdnfonts.com/css/bricolage-grotesque");
 
