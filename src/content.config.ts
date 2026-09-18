@@ -9,8 +9,8 @@ const legalPk = defineCollection({
     description: z.string().min(1),
     version: z.string().min(1),
     status: z.enum(['example', 'active', 'archived']),
-    updatedDate: z.string().date(),
-    effectiveDate: z.string().date().optional(),
+    updatedDate: z.date(),
+    effectiveDate: z.date().optional(),
     draft: z.boolean().default(true),
     order: z.number().int().default(0),
   }).refine((document) => document.status !== 'active' || Boolean(document.effectiveDate), {
