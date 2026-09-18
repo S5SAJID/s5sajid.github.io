@@ -1,13 +1,13 @@
 ---
 title: Example services agreement
-description: An illustrative structure for a design and development engagement. Not an agreement you can accept or rely on.
-version: '0.1'
+description: An illustrative structure for a design and development engagement.
+  Not an agreement you can accept or rely on.
+version: "0.1"
 status: example
-updatedDate: '2026-09-18'
-draft: false
+updatedDate: 2026-09-18
+draft: true
 order: 1
 ---
-
 ## 1. Purpose and status
 
 **Example — not for use.** This document demonstrates how Pakistan-specific client terms can be presented. It does not create obligations, offer services, or replace a signed agreement. Browsing, copying, or printing this page does not constitute acceptance.
