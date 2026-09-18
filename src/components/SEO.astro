@@ -5,6 +5,7 @@ interface Props {
   image?: string;
   article?: boolean;
   canonical?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   image = '/og.webp', // Default OG image
   article = false,
   canonical = Astro.url.href,
+  noindex = false,
 } = Astro.props;
 
 const siteTitle = 'S5 Sajid - Portfolio';
@@ -40,5 +42,5 @@ const fullTitle = title === siteTitle ? title : `${title}`;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- Additional SEO tags -->
-<meta name="robots" content="index,follow" />
-<meta name="googlebot" content="index,follow" />
+<meta name="robots" content={noindex ? "noindex,follow" : "index,follow"} />
+<meta name="googlebot" content={noindex ? "noindex,follow" : "index,follow"} />

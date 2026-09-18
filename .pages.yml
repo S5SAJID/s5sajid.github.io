@@ -78,3 +78,44 @@ content:
       - name: body
         label: Body
         type: rich-text
+  - name: legalPk
+    label: Pakistan legal documents
+    type: collection
+    path: src/content/legal-pk
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: version
+        label: Document version
+        type: string
+        required: true
+      - name: status
+        label: Status
+        type: select
+        options:
+          values: [example, active, archived]
+        required: true
+      - name: updatedDate
+        label: Last updated (YYYY-MM-DD)
+        type: string
+        required: true
+      - name: effectiveDate
+        label: Effective date (required for active documents, YYYY-MM-DD)
+        type: string
+      - name: draft
+        label: Draft (exclude from published site)
+        type: boolean
+        default: true
+      - name: order
+        label: Display order
+        type: number
+        default: 0
+      - name: body
+        label: Body
+        type: rich-text

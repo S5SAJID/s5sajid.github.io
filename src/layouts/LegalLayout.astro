@@ -1,0 +1,32 @@
+---
+import Layout from './Layout.astro';
+import '../styles/legal.css';
+
+interface Props { documentPage?: boolean; }
+const { documentPage = false } = Astro.props;
+---
+
+<Layout
+  title="Legal for Pakistan Clients | S5SAJID"
+  description="Pakistan-specific client documents. An automatic country check is required to view this library."
+  noindex={true}
+  legalPage={true}
+>
+  <a href="#legal-main" class="legal-skip-link">Skip to legal content</a>
+  <main id="legal-main" class:list={["min-h-screen", documentPage ? "py-20" : "py-24"]} tabindex="-1">
+    <div class:list={["container mx-auto px-6", { "max-w-3xl": documentPage }]}>
+      <section data-country-gate aria-labelledby="country-gate-title">
+        <h1 id="country-gate-title" class:list={["font-bold", documentPage ? "text-4xl md:text-5xl mb-12" : "text-7xl md:text-8xl mb-20"]}>LEGAL</h1>
+        <p data-country-status role="status" aria-live="polite" class="text-sm leading-relaxed max-w-xl">JavaScript is required to check your country. Documents remain hidden until Pakistan is confirmed.</p>
+        <p class="text-xs leading-relaxed max-w-xl mt-6">An automatic country check shares your IP with <a href="https://freeipapi.com/" class="underline" target="_blank" rel="noopener noreferrer">FreeIPAPI</a>. This site does not store the response.</p>
+      </section>
+      <div data-legal-content hidden>
+        <slot />
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import '../scripts/legal-country-gate';
+</script>

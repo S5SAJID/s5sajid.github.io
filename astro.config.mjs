@@ -6,7 +6,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: process.env.SITE || 'https://s5sajid.github.io',
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    filter: (page) => !/^\/legal-pk(?:\/|$)/.test(new URL(page).pathname),
+  })],
   vite: {
     plugins: [tailwindcss()]
   }

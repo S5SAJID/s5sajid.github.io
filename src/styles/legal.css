@@ -1,0 +1,61 @@
+.legal-page [hidden] { display: none !important; }
+
+.legal-page :is(a, button, summary):focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 5px;
+}
+
+.legal-skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: .75rem 1rem;
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.legal-skip-link:focus { top: 1rem; }
+
+.legal-page h1, .legal-prose { overflow-wrap: anywhere; }
+
+/* Match the blog article's Markdown typography. */
+.legal-prose h2 {
+  font-size: 1.875rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.legal-prose :is(h3, h4) {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.legal-prose :is(h2, h3, h4) { scroll-margin-top: 6rem; }
+.legal-prose > :first-child { margin-top: 0; }
+.legal-prose p { margin-bottom: 1.5rem; line-height: 1.75; }
+.legal-prose :is(ul, ol) { padding-left: 1.5rem; margin-bottom: 1.5rem; }
+.legal-prose ul { list-style-type: disc; }
+.legal-prose ol { list-style-type: decimal; }
+.legal-prose li { margin-bottom: .5rem; line-height: 1.75; }
+.legal-prose a { text-decoration: underline; text-underline-offset: .2em; }
+.legal-prose blockquote { border-left: 1px solid #000; padding-left: 1rem; margin-bottom: 1.5rem; }
+.legal-prose table { display: block; overflow-x: auto; border-collapse: collapse; margin-bottom: 1.5rem; }
+.legal-prose :is(th, td) { border: 1px solid #000; padding: .75rem; text-align: left; }
+.legal-prose hr { margin-block: 2rem; }
+
+@media print {
+  @page { margin: 18mm; }
+  .legal-page > nav, .legal-page > footer, .legal-skip-link,
+  .legal-back, .legal-tools, .legal-contents { display: none !important; }
+  .legal-page main { padding: 0; min-height: 0; }
+  .legal-page main > .container { padding: 0; max-width: none; }
+  .legal-page h1 { font-size: 26pt; }
+  .legal-prose { font-size: 11pt; }
+  .legal-prose :is(h2, h3, h4) { break-after: avoid; }
+  .legal-prose p { orphans: 3; widows: 3; }
+  .legal-notice { break-inside: avoid; }
+}

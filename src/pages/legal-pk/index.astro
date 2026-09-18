@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import LegalLayout from '../../layouts/LegalLayout.astro';
+
+const documents = (await getCollection('legalPk', ({ data }) => !data.draft))
+  .sort((first, second) => first.data.order - second.data.order || first.data.title.localeCompare(second.data.title));
+---
+
+<LegalLayout>
+  <h1 class="text-7xl md:text-8xl font-bold mb-20">LEGAL</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {documents.map(({ id, data }) => (
+      <a href={`/legal-pk/${id}`} class="legal-card p-6 group">
+        <span class="text-xs tracking-widest">{data.status === 'example' ? 'EXAMPLE — NOT FOR USE' : data.status.toUpperCase()}</span>
+        <h2 class="text-xl font-bold mt-2 mb-4 group-hover:underline">{data.title}</h2>
+        <p class="text-sm mb-4">{data.description}</p>
+        <span class="text-xs">Version {data.version}</span>
+      </a>
+    ))}
+  </div>
+  {documents.length === 0 && <p class="text-sm">No documents are currently published.</p>}
+</LegalLayout>
+
+<style>
+  .legal-card {
+    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid #000;
+  }
+
+  .legal-card:hover {
+    box-shadow: 8px 8px 0px #000;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .legal-card { transition: none; }
+  }
+</style>

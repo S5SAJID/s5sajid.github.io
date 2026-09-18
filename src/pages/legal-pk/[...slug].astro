@@ -1,0 +1,63 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import LegalLayout from '../../layouts/LegalLayout.astro';
+
+export async function getStaticPaths() {
+  const documents = await getCollection('legalPk', ({ data }) => !data.draft);
+  return documents.map((document) => ({ params: { slug: document.id }, props: { document } }));
+}
+
+interface Props { document: CollectionEntry<'legalPk'>; }
+const { document } = Astro.props;
+const { data } = document;
+const { Content, headings } = await render(document);
+const contents = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const formatDate = (date: string) => new Intl.DateTimeFormat('en-PK', {
+  dateStyle: 'long', timeZone: 'Asia/Karachi',
+}).format(new Date(`${date}T00:00:00Z`));
+---
+
+<LegalLayout documentPage>
+  <a class="legal-back inline-block mb-12 hover:underline" href="/legal-pk">← Back to Legal</a>
+  <article aria-labelledby="document-title">
+    <header>
+      <h1 id="document-title" class="text-4xl md:text-5xl font-bold mt-2 mb-4">{data.title}</h1>
+      <p class="text-sm mb-8 leading-relaxed">
+        Version {data.version} · Updated <time datetime={data.updatedDate}>{formatDate(data.updatedDate)}</time>
+        {data.effectiveDate && <> · Effective <time datetime={data.effectiveDate}>{formatDate(data.effectiveDate)}</time></>}
+      </p>
+    </header>
+    {data.status === 'example' && <p class="legal-notice text-sm leading-relaxed mb-8"><strong>Example — not for use.</strong> Not an operative agreement or legal advice. Obtain qualified Pakistani legal review before use.</p>}
+    {data.status === 'archived' && <p class="legal-notice text-sm leading-relaxed mb-8"><strong>Archived.</strong> Confirm the applicable version for your engagement.</p>}
+    <div class="legal-tools flex flex-wrap items-center gap-x-6 text-sm mb-6" data-reader-tools hidden>
+      <button class="py-3 cursor-pointer hover:underline" type="button" data-copy-document>Copy link</button>
+      <button class="py-3 cursor-pointer hover:underline" type="button" data-print-document>Print / save PDF</button>
+      <span data-copy-status role="status" aria-live="polite"></span>
+    </div>
+    {contents.length > 0 && <details class="legal-contents text-sm mb-12">
+      <summary class="cursor-pointer py-3">Contents</summary>
+      <nav aria-label="On this page" class="mt-2">
+        <ol>{contents.map((heading) => <li class:list={{ 'pl-4': heading.depth === 3 }}><a class="inline-block py-2 hover:underline" href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol>
+      </nav>
+    </details>}
+    <div class="legal-prose">
+      <Content />
+    </div>
+  </article>
+</LegalLayout>
+
+<script>
+  const tools = document.querySelector<HTMLElement>('[data-reader-tools]');
+  if (tools) tools.hidden = false;
+  document.querySelector('[data-print-document]')?.addEventListener('click', () => window.print());
+  document.querySelector('[data-copy-document]')?.addEventListener('click', async () => {
+    const status = document.querySelector<HTMLElement>('[data-copy-status]');
+    if (!status) return;
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      status.textContent = 'Link copied.';
+    } catch {
+      status.textContent = 'Could not copy. Copy the URL from your browser’s address bar.';
+    }
+  });
+</script>
