@@ -1,0 +1,38 @@
+{
+  "name": "icon-picker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs",
+    "generate:icon-names": "bun run scripts/generate-lucide-icon-names.mjs"
+  },
+  "dependencies": {
+    "@astryxdesign/core": "*",
+    "@astryxdesign/theme-neutral": "*",
+    "@stylexjs/stylex": "^0.19.0",
+    "lucide-react": "^1.47.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@astryxdesign/build": "*",
+    "@astryxdesign/cli": "^0.6.2",
+    "@stylexjs/unplugin": "^0.19.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.3"
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
+  "trustedDependencies": [
+    "@astryxdesign/cli",
+    "@astryxdesign/core"
+  ]
+}
