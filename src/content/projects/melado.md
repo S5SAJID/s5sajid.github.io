@@ -15,7 +15,7 @@ skills:
 caseStudyEnabled: true
 imagePreviewURL: /images/projects/Melado/Melado-Desktop-Menu-Grid.png
 draft: false
-featured: true
+featured: false
 ---
 ![](/images/projects/Melado/Melado-Desktop-Hero.png)
 
